@@ -38,6 +38,9 @@ isort: ## check imports with isort
 black: ## check formatting with black
 	black --check with_time tests setup.py
 
+rst: ## Check format of rst files
+	rstchech *.rst
+
 clean-build: ## remove build artifacts
 	rm -fr build/
 	rm -fr dist/
@@ -65,7 +68,7 @@ test-security:
 test: ## run tests quickly with the default Python
 	py.test tests --ignore tests/test_lambda_integration.py --cov=with_time --cov-fail-under=100 --cov-report term-missing
 
-test-all: isort black lint test-security test
+test-all: isort black lint test-security test rst
 
 integration-test: ## run tests quickly with the default Python
 	py.test tests --cov=with_time --cov-fail-under=100

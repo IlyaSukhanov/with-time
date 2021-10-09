@@ -10,25 +10,26 @@ With Time
 Context Managers and Decorator for common time operations 
 
 Quick start
-------------
+============
 
 Installation
-````````````
+------------
 
 .. code-block:: shell
 
     pip intall with-time
 
 Usage
-`````
+-----
 
 Measuring duration, with PrintingTimer or LoggingTimer
 
-*with_timer.PrintingTimer(label: str, timer: Callable[[], float] = time.time)*
+with_timer.PrintingTimer(label: str = None, timer: Callable[[], float] = time.time)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   Prints out how long context operation or function took. Message is prepended with
-   *label*. By default elapsed running time will be measured but other `time`_ methods can be
-   utilized such as *time.process_time*, *time.monotomic*, and so on.
+Prints out how long context operation or function took. Message is prepended with
+*label*. By default elapsed running time will be measured but other `time`_ methods can be
+utilized such as *time.process_time*, *time.monotomic*, and so on.
 
 .. code-block:: python
 
@@ -39,7 +40,7 @@ Measuring duration, with PrintingTimer or LoggingTimer
     >>> with PrintingTimer("Example"):
     ...     time.sleep(.1337)
     ... 
-    Decorator Example: 0.13398265838623047 seconds
+    Example: 0.13398265838623047 seconds
     >>> 
     >>> # Decorator Example
     >>> @PrintingTimer("Decorator Example")
@@ -47,13 +48,14 @@ Measuring duration, with PrintingTimer or LoggingTimer
     ...     time.sleep(.1337)
     ... 
     >>> foo()
-    Example: 0.13398265838623047 seconds
+    Decorator Example: 0.13398265838623047 seconds
 
 
-*with_timer.LoggingTimer(label: str, timer: Callable[[], float] = time.time)*
+with_timer.LoggingTimer(label: str = None, log_level: int = None, timer: Callable[[], float] = time.time)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    LoggingTimer works just the same way as PrintinTimer except duration is logged
-    rather than printed.
+LoggingTimer works just the same way as PrintinTimer except duration is logged
+rather than printed. Log level can be customized using `logging.debug, logging.warning...`_
 
 .. code-block:: python
 
@@ -77,15 +79,16 @@ Measuring duration, with PrintingTimer or LoggingTimer
     INFO:with_time.timer:Decorator Example: 0.13396501541137695 seconds
 
 
-*with_time.SignalTimeout(seconds: float, exception=None)*
+with_time.SignalTimeout(seconds: float, exception=None)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     
-    Raise an exception as an execution timeout. SignalTimeout uses `signal`_ implementation
-    which is only supported on Unix like os. By default *with_time.exceptions.TimeoutError*
-    but this can be changed by passing any initialized exception object as *exception*
+Raise an exception as an execution timeout. SignalTimeout uses `signal`_ implementation
+which is only supported on Unix like os. By default *with_time.exceptions.TimeoutError*
+but this can be changed by passing any initialized exception object as *exception*
 
 
-    SignalTimeout does attempt to restore signals it overwrites which make some but not all
-    nested scenarios of timeout work.
+SignalTimeout does attempt to restore signals it overwrites which make some but not all
+nested scenarios of timeout work.
 
 .. code-block:: python
 
@@ -112,3 +115,4 @@ Measuring duration, with PrintingTimer or LoggingTimer
 
 .. _`signal`: https://docs.python.org/3/library/signal.html
 .. _`time`: https://docs.python.org/3/library/time.html#time.get_clock_info
+.. _`logging.debug, logging.warning...`: https://docs.python.org/3/library/logging.html#logging-levels

@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class SignalTimeout(ContextDecorator):
-    def __init__(self, seconds: float, exception=None):
+    def __init__(self, seconds: float, *, exception=None):
         self.seconds = seconds
         self.old_handler = None
         self.old_interval = None

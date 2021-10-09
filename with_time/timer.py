@@ -7,8 +7,8 @@ logger = logging.getLogger(__name__)
 
 
 class BasicTimer(ContextDecorator):
-    def __init__(self, label: str, timer: Callable[[], float] = time.time):
-        self.label = label
+    def __init__(self, label: str = None, *, timer: Callable[[], float] = time.time):
+        self.label = label or "Elapsed time"
         self.timer = timer
         self.start_time = None
         self.end_time = None
@@ -35,8 +35,12 @@ class BasicTimer(ContextDecorator):
 
 
 class LoggingTimer(BasicTimer):
+    def __init__(self, *args, log_level: int = None, **kwargs):
+        self.log_level = logging.INFO
+        super().__init__(*args, **kwargs)
+
     def emit(self):
-        logger.info(self.message)
+        logger.log(self.log_level, self.message)
 
 
 class PrintingTimer(BasicTimer):
