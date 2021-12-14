@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="with_time",
-    version="0.2",
+    version="0.3",
     description="Measuring and managing of time through context-managers and decorators.",
     long_description=open("README.rst").read().strip(),
     author="Ilya Sukhanov",
